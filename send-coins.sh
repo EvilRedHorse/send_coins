@@ -66,7 +66,7 @@ for ((n=0;n<"$INTERVALS";n++))
 do
     for ((j=0;j<"${#array[@]}";j++))
     do
-    let "ITERATION = $j + 1"
+    let "ARRAY_ITERATION = $j + 1"
         # loop through t_addresses
         for i in "${array[$j]}"
         do
@@ -78,7 +78,7 @@ do
         done
 
         # check for last iteration to negate sleep after last transaction
-        if [ "$ITERATION" = "$INTERVALS" ] ||  [ "$ARRAY_ITERATION" = "${#array[@]}" ]; then
+        if [ "$ITERATION" = "$INTERVALS" ] && [ "$ARRAY_ITERATION" = "${#array[@]}" ]; then
         SLEEP_INTERVAL="0"
         sleep "$SLEEP_INTERVAL"
     else
