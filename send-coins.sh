@@ -52,7 +52,7 @@ fi
 
 # Prompt to choose coin to send
 INTERVALS=2
-read -e -i "$INTERVALS" -p "# of payments? " INTERVALS
+read -e -i "$INTERVALS" -p "number of payments? " INTERVALS
 
 # how many times to interval payments
 if [ "$INTERVALS" -gt "1" ]; then
@@ -76,7 +76,8 @@ do
 #            let "ITERATION = $n + 1"
 #            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" #sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with #$SLEEP_INTERVAL seconds between payments and executed from a bash script, payment #$ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" #"$RECEPIENT" false
             let "ITERATION = $n + 1"
-            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "'$MEMO"','"Amount:$AMOUNT"','"Coin"':'"$COIN"','"To"':'"$RECEPIENT"','"Payments"':'"$INTERVALS"','"PaymentIntervals"':'"$SLEEP_INTERVAL"','"$ITERATION"','"Intervals"':'"$INTERVALS"','"ReturnPaymentAddress"':'"$RETURN_ADDRESS'"  "$RECEPIENT" "false"
+            let "MEMO_FIELD="$MEMO","Amount:$AMOUNT","Coin":"$COIN","To":"$RECEPIENT","Payments":"$INTERVALS","PaymentIntervals":"$SLEEP_INTERVAL","$ITERATION","Intervals":"$INTERVALS","ReturnPaymentAddress":"$RETURN_ADDRESS"  "$RECEPIENT"
+            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$MEMO_FIELD" "false"
 
         done
 
