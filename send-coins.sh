@@ -30,7 +30,7 @@ array=( )
 # append t_address to array
 T_ADDRESS="t1XkGxHatyhuY1mZ2c87noqv9AyzyBNuazm t1XkGxHatyhuY1mZ2c87noqv9AyzyBNuazm"
 read -e -i "$T_ADDRESS" -p "t_address to send payment to, space demlimit multiple addresses: " T_ADDRESS
-array+=("$T_ADDRESS")
+array+=($T_ADDRESS)
 
 # Choose a recepient
 read -e -i "$T_ADDRESS" -p "Recepient Name: " RECEPIENT
@@ -66,6 +66,7 @@ for ((n=0;n<"$INTERVALS";n++))
 do
     for ((j=0;j<"${#array[@]}";j++))
     do
+    let "ITERATION = $j + 1"
         # loop through t_addresses
         for i in "${array[$j]}"
         do
@@ -73,13 +74,15 @@ do
             # send VOT to array list
             let "ITERATION = $n + 1"
             printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" "$RECEPIENT" false
-            # check for last iteration to negate sleep after last transaction
-            if [ "$ITERATION" = "$INTERVALS" ]; then
-            SLEEP_INTERVAL="0"
-            sleep "$SLEEP_INTERVAL"
-        else
-            sleep "$SLEEP_INTERVAL"
-        fi
+
         done
+
+        # check for last iteration to negate sleep after last transaction
+        if [ "$ITERATION" = "$INTERVALS" ] ||  [ "$ARRAY_ITERATION" = "${#array[@]}" ]; then
+        SLEEP_INTERVAL="0"
+        sleep "$SLEEP_INTERVAL"
+    else
+        sleep "$SLEEP_INTERVAL"
+    fi
     done
 done
