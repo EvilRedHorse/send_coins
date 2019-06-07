@@ -76,7 +76,7 @@ do
 #            let "ITERATION = $n + 1"
 #            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" #sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with #$SLEEP_INTERVAL seconds between payments and executed from a bash script, payment #$ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" #"$RECEPIENT" false
             let "ITERATION = $n + 1"
-            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending:$AMOUNT$COIN\",\"to\":\"$RECEPIENT\", $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" "$RECEPIENT" false
+            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "$MEMO","Amount:$AMOUNT","Coin":$COIN,"To":"$RECEPIENT","Payments":$INTERVALS,"PaymentIntervals":"$SLEEP_INTERVAL","$ITERATION,"Intervals":$INTERVALS,"ReturnPaymentAddress":"$RETURN_ADDRESS" "$RECEPIENT" false
 
         done
 
