@@ -9,4 +9,4 @@ read MESSAGE
 git add -A && git commit -m "$MESSAGE"
 printf "now...\ngit push - Username & Password required\n\n"
 # git push update
-git push origin master
+printf "EvilRedHorse" | git push origin master
