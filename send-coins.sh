@@ -4,7 +4,7 @@
 # set default coin
 COIN="VOT"
 # Prompt to choose coin to send
-read -e -i "VOT" -p "Coin to send? [VOT, ZCASH, HUSH, VERUS] " COIN
+read -e -i "VOT" -p "Coin to send: [VOT, ZCASH, HUSH, VERUS] " COIN
 
 # choose appropriate program to send coin
 if [ "$COIN" == "VOT" ]; then
@@ -23,8 +23,25 @@ else
     printf "no valid program to use..."
 fi
 
-# amount to send
+# declare array & initialize array
+declare -a array
+array=( )
 
+# append t_address to array
+T_ADDRESS="t1XkGxHatyhuY1mZ2c87noqv9AyzyBNuazm"
+read -e -i "$T_ADDRESS" -p "t_address to send payment to: " T_ADDRESS
+array+=("$T_ADDRESS")
+
+# Choose a recepient
+read -e -i "$T_ADDRESS" -p "Recepient Name: " RECEPIENT
+
+# Choose a return address for compliance
+read -e -i "$RETURN_ADDRESS" -p "Return t_address or z_address: " RETURN_ADDRESS
+
+# Append memo to transaction memo
+read -e -i "$MEMO" -p "Append memo: " MEMO
+
+# amount to send
 if [ -z "$AMOUNT" ]; then
     AMOUNT=125
     read -e -i "$AMOUNT" -p "Amount to send? " AMOUNT
@@ -32,8 +49,8 @@ else
     read -e -i "$AMOUNT" -p "Amount to send? " AMOUNT
 fi
 
-INTERVALS=2
 # Prompt to choose coin to send
+INTERVALS=2
 read -e -i "$INTERVALS" -p "# of payments? " INTERVALS
 
 # how many times to interval payments
@@ -44,17 +61,6 @@ else
     SLEEP_INTERVAL=0
 fi
 
-# declare array
-declare -a array
-
-# initialize array
-array=( )
-
-# append t_address to array
-T_ADDRESS="t1XkGxHatyhuY1mZ2c87noqv9AyzyBNuazm"
-read -e -i "$T_ADDRESS" -p "t_address to send payment to? " T_ADDRESS
-array+=("$T_ADDRESS")
-
 # loop x number of times 
 for ((n=0;n<"$INTERVALS";n++))
 do
@@ -64,7 +70,7 @@ do
         :
         # send VOT to array list
         let "ITERATION = $n + 1"
-        printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to myself $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS" "myself" false
+        printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" "$RECEPIENT" false
         # check for last iteration to negate sleep after last transaction
         if [ "$ITERATION" = "$INTERVALS" ]; then
         SLEEP_INTERVAL="0"
