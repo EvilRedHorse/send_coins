@@ -64,7 +64,7 @@ fi
 # loop x number of times 
 for ((n=0;n<"$INTERVALS";n++))
 do
-    for ((j=0;j++))
+    for ((j=0;j<"${#array[@]}";j++))
     do
         # loop through t_addresses
         for i in "${array[$j]}"
@@ -80,5 +80,6 @@ do
         else
             sleep "$SLEEP_INTERVAL"
         fi
+        done
     done
 done
