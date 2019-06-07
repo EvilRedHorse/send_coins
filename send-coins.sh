@@ -32,8 +32,9 @@ T_ADDRESS="t1XkGxHatyhuY1mZ2c87noqv9AyzyBNuazm t1XkGxHatyhuY1mZ2c87noqv9AyzyBNua
 read -e -i "$T_ADDRESS" -p "t_address to send payment to, space demlimit multiple addresses: " T_ADDRESS
 array+=($T_ADDRESS)
 
-# Choose a recepient
-read -e -i "$T_ADDRESS" -p "Recepient Name: " RECEPIENT
+# Choose a recepient, default to first entry
+RECEPIENT="${array[0]}"
+read -e -i "$RECEPIENT" -p "Recepient Name: " RECEPIENT
 
 # Choose a return address for compliance
 read -e -i "$RETURN_ADDRESS" -p "Return t_address or z_address: " RETURN_ADDRESS
@@ -72,8 +73,10 @@ do
         do
             :
             # send VOT to array list
+#            let "ITERATION = $n + 1"
+#            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" #sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with #$SLEEP_INTERVAL seconds between payments and executed from a bash script, payment #$ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" #"$RECEPIENT" false
             let "ITERATION = $n + 1"
-            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending $AMOUNT $COIN to $RECEPIENT $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" "$RECEPIENT" false
+            printf "\nSending $AMOUNT $COIN to $i... Transaction ID: " && "$PROGRAM" sendtoaddress "$i" "$AMOUNT" "Sending:$AMOUNT$COIN\",\"to\":\"$RECEPIENT\", $INTERVALS times with $SLEEP_INTERVAL seconds between payments and executed from a bash script, payment $ITERATION of $INTERVALS - Return Payment Address: $RETURN_ADDRESS - MEMO: $MEMO" "$RECEPIENT" false
 
         done
 
