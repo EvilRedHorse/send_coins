@@ -4,13 +4,21 @@
 
                                                               VARIABLE
 choice for type of coin, script to pick appropriate program - COIN & PROGRAM,
+
 choice for one or more addresses -                            T_ADDRESS         space delimited,
+
 choice for payment amount per interval -                      AMOUNT,
+
 choice for number of intervals -                              INTERVALS,
+
 choice for time in seconds between intervals -                SLEEP_INTERVAL,   interval in seconds
+
 choice for return adddress -                                  RETURN_ADDRESS    for compliance purposes,
+
 choice for memorandum -                                       MEMO,
+
 choice for recepient address -                                RECEPIENT
+
 
 Long-term:  I would like to add a bit of internationalization with a choice of language 
             Load defaults from json or similar compact notation, allow user to set defaults with a cli-based script and perhaps a simple GUI
