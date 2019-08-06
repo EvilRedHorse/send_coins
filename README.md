@@ -1,6 +1,6 @@
 # file to run: send-coins.sh
 # Script to send equihash coins:
-# Intended for a simple transaction or to spread out payments over multiple addresses and have them gradually sent over 
+# Intended for a simple transaction or to spread out payments over multiple addresses and have them gradually sent over time
 
                                                               VARIABLE
 choice for type of coin, script to pick appropriate program - COIN & PROGRAM,
