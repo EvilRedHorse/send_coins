@@ -18,3 +18,5 @@ choice for one or more addresses -                            T_ADDRESS,        
 
 
 Long-term:  I would like to add a bit of internationalization with a choice of language
+
+Donate: VOT -> t1MQFVdP2R84QmypG6mCCqNyEH4RKaWTscJ
